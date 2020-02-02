@@ -21,7 +21,7 @@ stages:
             inputs:
               helmVersionToInstall: 'v3.0.2'
           - bash: "sudo apt-get install python3-pip make"
-          - bash: "pip3 install ruamel.yaml"
+          - bash: "pip install ruamel.yaml"
           - bash: "make clean all"
   - stage: release
     displayName: "Make Git Release"
