@@ -11,11 +11,11 @@ clean:
 	rm out -rf
 
 dependencies:
-	pip3 install pystache ruamel.yaml
+	pip install pystache ruamel.yaml
 	touch dependencies
 
 README.MD: dependencies README.MD.TEMPLATE $(CHARTNAME)/Chart.yaml $(CHARTNAME)/values.yaml
-	python3 makereadme.py README.MD.TEMPLATE README.MD $(CHARTNAME)/Chart.yaml $(CHARTNAME)/values.yaml
+	python makereadme.py README.MD.TEMPLATE README.MD $(CHARTNAME)/Chart.yaml $(CHARTNAME)/values.yaml
 
 out/$(CHARTNAME)-$(CHARTVERSION).tgz: $(CHARTNAME)/ out/
 	helm lint $<
