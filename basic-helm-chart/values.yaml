@@ -1,0 +1,37 @@
+replicaCount: 1             # Number of replicas for this chart
+
+image:
+  repository: hexf/no-image # Image Name 
+  pullPolicy: IfNotPresent  # Image Pull Policy
+  pullSecrets: []           # Image Pull Secrets
+
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true   # Specifies whether a service account should be created
+  name:          # The name of the service account to use. If not set and create is true, a name is generated using the fullname template
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  annotations: {} #Ingress Annotations
+
+  hosts:
+    - host: chart-example.local
+      paths: []
+  tls: []
+resources: {} # Resources to allocate to instances
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

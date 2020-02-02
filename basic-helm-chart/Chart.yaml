@@ -1,0 +1,10 @@
+apiVersion: v2
+name: basic-helm-chart
+description: A Template helm chart - Does not deploy!
+title: Basic Helm Chart
+
+type: application
+
+version: 0.1.0
+
+appVersion: 1.16.0
