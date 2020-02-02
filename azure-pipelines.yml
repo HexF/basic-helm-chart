@@ -60,6 +60,6 @@ stages:
               tagSource: 'userSpecifiedTag'
               tag: 'release-$(ChartVersion)'
               title: 'Chart Release $(ChartVersion)'
-              assets: '$(Build.ArtifactStagingDirectory)/out/*'
+              assets: '$(System.ArtifactsDirectory)/out/*'
               changeLogCompareToRelease: 'lastFullRelease'
               changeLogType: 'commitBased'
