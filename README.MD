@@ -35,6 +35,7 @@ $ helm delete my-release
 ## Parameters
 
 The following is a list of parameters configurable for this chart, along with their default values and descriptions
+
 | **Parameter**       | **Description**                                     | **Default**                          |
 |---------------------|-----------------------------------------------------|--------------------------------------|
 | `image.registry`    | Registry to pull image from                         | `docker.io`                          |
