@@ -15,17 +15,13 @@ stages:
     displayName: "Lint and Build Charts"
     jobs:
       - job: deps
-        displayName: "Install Dependencies"
+        displayName: "Lint and Build Charts"
         steps: 
           - task: HelmInstaller@1
             inputs:
               helmVersionToInstall: 'v3.0.2'
           - bash: "sudo apt-get install python3-pip make"
           - bash: "pip3 install ruamel.yaml"
-      - job: make
-        displayName: "Run Makefile"
-        dependsOn: deps
-        steps:
           - bash: "make clean all"
   - stage: release
     displayName: "Make Git Release"
