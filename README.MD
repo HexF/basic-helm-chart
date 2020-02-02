@@ -1,32 +1,33 @@
 # Basic Helm Chart
 
-This repository contains a template for a helm chart, including CI/CD to my repository.
+A Template helm chart - Does not deploy!
 
-## TL;DR
+## TLDR
 
 ```sh
-$ helm repo add hexf https://charts.repo.hexf.me/
-$ helm install hexf/basic-chart
+$ helm repo add hexf https://charts.hexf.me/
+$ helm install hexf/basic-helm-chart
 ```
 
 ## Prerequisites
-* Kubernetes 1.12+
+
+* Kuberentes 1.12+
 * Helm 3.0-beta3+
 
 ## Installing the Chart
 
-To install the chart with the release name `my-release`
+To install `Basic Helm Chart` with the release name `my-release`
 
 ```sh
-$ helm repo add hexf https://charts.repo.hexf.me/
-$ helm install --name my-release hexf/basic-chart
+$ helm repo add hexf https://charts.hexf.me/
+$ helm install --name my-release hexf/basic-helm-chart
 ```
 
-These command will deploy the chart with the default configuration
+These command will deploy `Basic Helm Chart` with the default configuration
 
 ## Uninstalling the Chart
 
-To uninstall the `my-release` deployment:
+To uninstall/delete the `my-release` deployment:
 
 ```sh
 $ helm delete my-release
@@ -34,14 +35,27 @@ $ helm delete my-release
 
 ## Parameters
 
-The following is a list of parameters configurable for this chart, along with their default values and descriptions
+The following is a list of parameters configurable for this chart, along with their description and default values.
 
-| **Parameter**       | **Description**                                     | **Default**                          |
-|---------------------|-----------------------------------------------------|--------------------------------------|
-| `image.registry`    | Registry to pull image from                         | `docker.io`                          |
-| `image.repository`  | Image to pull for chart                             | `hexf/chart`                         |
-| `image.tag`         | Tag for image                                       | `{APP_VERSION}`                      |
-| `image.pullPolicy`  | Image pull Policy                                   | `IfNotPresent`                       |
-| `image.pullSecrets` | Specifies docker-registry secrets names as an array | `[]` (does not pull secrets to pods) |
-| `nameOverride`      | String to override the fullname template            | `nil`                                |
-| `replicaCount`      | Number of replicas to deploy                        | `1`                                  |
+**Parameter** | **Description** | **Default**
+--- | --- | ---
+`replicaCount` |  Number of replicas for this chart | `1`
+`image.repository` |  Image Name | `hexf/no-image`
+`image.pullPolicy` |  Image Pull Policy | `IfNotPresent`
+`image.pullSecrets` |  Image Pull Secrets | `[]`
+`nameOverride` |  | `nil`
+`fullnameOverride` |  | `nil`
+`serviceAccount.create` |  Specifies whether a service account should be created | `True`
+`serviceAccount.name` |  The name of the service account to use. If not set and create is true, a name is generated using the fullname template | `nil`
+`podSecurityContext` |  | `{}`
+`securityContext` |  | `{}`
+`service.type` |  | `ClusterIP`
+`service.port` |  | `80`
+`ingress.enabled` |  | `nil`
+`ingress.annotations` | Ingress Annotations | `{}`
+`ingress.hosts` |  | `[ordereddict([(&#x27;host&#x27;, &#x27;chart-example.local&#x27;), (&#x27;paths&#x27;, [])])]`
+`ingress.tls` |  | `[]`
+`resources` |  Resources to allocate to instances | `{}`
+`nodeSelector` |  | `{}`
+`tolerations` |  | `[]`
+`affinity` |  | `{}`
