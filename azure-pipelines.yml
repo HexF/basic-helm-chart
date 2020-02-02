@@ -1,0 +1,55 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+
+stages:
+  - stage: build
+    displayName: "Lint and Build Charts"
+    jobs:
+      - job: deps
+        displayName: "Install Dependencies"
+        steps: 
+          - task: HelmInstaller@1
+            inputs:
+              helmVersionToInstall: 'v3.0.2'
+          - bash: "sudo apt-get install python3-pip make"
+      - job: make
+        displayName: "Run Makefile"
+        dependsOn: deps
+        steps:
+          - bash: "make clean all"
+  - stage: release
+    displayName: "Make Git Release"
+    jobs:
+      - job: getVer
+        displayName: "Get Chart Version"
+        steps:
+          - bash: echo "##vso[task.setvariable variable=version;isOutput=true]`python chartinfo.py */Chart.yaml version`"
+            name: getVer
+            displayName: Get Version Number
+      - job: gitRelease
+        displayName: "Make Git Release"
+        dependsOn: getVer
+        variables:
+          ChartVersion: $[ dependencies.getVer.outputs['getVer.version'] ]
+        steps:
+          - task: GitHubRelease@1
+            inputs:
+              gitHubConnection: 'HexF'
+              repositoryName: '$(Build.Repository.Name)'
+              action: 'create'
+              target: '$(Build.SourceVersion)'
+              tagSource: 'userSpecifiedTag'
+              tag: 'release-$(ChartVersion)'
+              title: 'Chart Release $(ChartVersion)'
+              assets: '$(Build.ArtifactStagingDirectory)/out/*'
+              changeLogCompareToRelease: 'lastFullRelease'
+              changeLogType: 'commitBased'
