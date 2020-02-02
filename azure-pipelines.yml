@@ -51,6 +51,7 @@ stages:
               downloadType: 'single'
               artifactName: 'build_result'
               downloadPath: '$(System.ArtifactsDirectory)/out/'
+          - bash: dir $(System.ArtifactsDirectory)/out/
           - task: GitHubRelease@1
             inputs:
               gitHubConnection: 'HexF'
@@ -60,6 +61,6 @@ stages:
               tagSource: 'userSpecifiedTag'
               tag: 'release-$(ChartVersion)'
               title: 'Chart Release $(ChartVersion)'
-              assets: '$(System.ArtifactsDirectory)/out/*'
+              assets: '$(System.ArtifactsDirectory)/out/**/*'
               changeLogCompareToRelease: 'lastFullRelease'
               changeLogType: 'commitBased'
