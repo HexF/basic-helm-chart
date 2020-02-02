@@ -20,15 +20,22 @@ stages:
           - task: HelmInstaller@1
             inputs:
               helmVersionToInstall: 'v3.0.2'
-          - bash: "sudo apt-get install python3-pip make"
+          - bash: "sudo apt-get install make"
           - bash: "pip install ruamel.yaml"
           - bash: "make clean all"
+          - task: PublishBuildArtifacts@1
+            inputs:
+              PathtoPublish: '$(Build.ArtifactStagingDirectory)/out'
+              ArtifactName: 'build_result'
+              publishLocation: 'Container'
   - stage: release
     displayName: "Make Git Release"
+    dependsOn: build
     jobs:
       - job: getVer
         displayName: "Get Chart Version"
         steps:
+          - bash: "pip install ruamel.yaml"
           - bash: echo "##vso[task.setvariable variable=version;isOutput=true]`python chartinfo.py */Chart.yaml version`"
             name: getVer
             displayName: Get Version Number
@@ -38,6 +45,12 @@ stages:
         variables:
           ChartVersion: $[ dependencies.getVer.outputs['getVer.version'] ]
         steps:
+          - task: DownloadBuildArtifacts@0
+            inputs:
+              buildType: 'current'
+              downloadType: 'single'
+              artifactName: 'build_result'
+              downloadPath: '$(System.ArtifactsDirectory)/out/'
           - task: GitHubRelease@1
             inputs:
               gitHubConnection: 'HexF'
