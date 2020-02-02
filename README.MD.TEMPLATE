@@ -1,0 +1,40 @@
+# {{Chart.title}}
+
+{{Chart.description}}
+
+## TLDR
+
+```sh
+$ helm repo add hexf https://charts.hexf.me/
+$ helm install hexf/{{Chart.name}}
+```
+
+## Prerequisites
+
+* Kuberentes 1.12+
+* Helm 3.0-beta3+
+
+## Installing the Chart
+
+To install `{{Chart.title}}` with the release name `my-release`
+
+```sh
+$ helm repo add hexf https://charts.hexf.me/
+$ helm install --name my-release hexf/{{Chart.name}}
+```
+
+These command will deploy `{{Chart.title}}` with the default configuration
+
+## Uninstalling the Chart
+
+To uninstall/delete the `my-release` deployment:
+
+```sh
+$ helm delete my-release
+```
+
+## Parameters
+
+The following is a list of parameters configurable for this chart, along with their description and default values.
+
+{{Chart.valuesTable}}
