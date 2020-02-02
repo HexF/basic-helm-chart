@@ -25,7 +25,7 @@ stages:
           - bash: "make clean all"
           - task: PublishBuildArtifacts@1
             inputs:
-              PathtoPublish: '$(Build.ArtifactStagingDirectory)/out'
+              PathtoPublish: 'out'
               ArtifactName: 'build_result'
               publishLocation: 'Container'
   - stage: release
