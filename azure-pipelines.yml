@@ -21,6 +21,7 @@ stages:
             inputs:
               helmVersionToInstall: 'v3.0.2'
           - bash: "sudo apt-get install python3-pip make"
+          - bash: "pip3 install ruamel.yaml"
       - job: make
         displayName: "Run Makefile"
         dependsOn: deps
